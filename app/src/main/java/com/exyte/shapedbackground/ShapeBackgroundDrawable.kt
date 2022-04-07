@@ -1,8 +1,9 @@
-package com.example.likeinstabackgroundtext
+package com.exyte.shapedbackground
 
 import android.content.Context
 import android.graphics.*
 import android.graphics.drawable.ColorDrawable
+import com.example.likeinstabackgroundtext.BackgroundParams
 
 class ShapeBackgroundDrawable(
     private val shape: Path,

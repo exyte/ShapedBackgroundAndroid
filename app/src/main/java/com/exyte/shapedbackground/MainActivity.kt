@@ -1,9 +1,10 @@
-package com.example.likeinstabackgroundtext
+package com.exyte.shapedbackground
 
-import android.graphics.Color
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.example.likeinstabackgroundtext.R
 import com.example.likeinstabackgroundtext.databinding.ActivityMainBinding
+import com.example.likeinstabackgroundtext.roundedBackground
 
 class MainActivity : AppCompatActivity() {
 
@@ -16,7 +17,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.text.roundedBackground {
-            backgroundColor = Color.parseColor("#fff1e4")
+            backgroundColor = resources.getColor(R.color.serenade)
             shadow {
                 dx = 5f
                 dy = 5f
