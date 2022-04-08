@@ -26,23 +26,23 @@ ShapedBackground is an easy way to colour your backdrop as in Instagram stories
 
 ```kotlin
 text.roundedBackground {
-            backgroundColor = getColor(R.color.serenade)
-            shadow {
-                dx = 5f
-                dy = 5f
-                radius = 10f
-            }
-        }
+    backgroundColor = getColor(R.color.serenade)
+    shadow {
+        dx = 5f
+        dy = 5f
+        radius = 10f
+    }
+}
 ```
 You can also add a gradient and set the background parameters
 
 ```kotlin
 binding.text.roundedBackground {
-            gradient = arrayListOf(Color.MAGENTA,Color.CYAN)
-            cornerRadius = 40f
-            paddingVertical = 5f
-            paddingHorizontal = 5f
-        }
+    gradient = arrayListOf(Color.MAGENTA,Color.CYAN)
+    cornerRadius = 40f
+    paddingVertical = 5f
+    paddingHorizontal = 5f
+}
 ```
 In addition to ```TextView```, you can also use the ShapedBackground for ```EditText```
 
