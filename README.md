@@ -1,9 +1,9 @@
 <img src="https://github.com/exyte/Grid/raw/media/Assets/header.png">
-<img align="right" height="600" src="https://user-images.githubusercontent.com/57913130/162217415-aaacfaa8-9ae0-427f-a88a-ad98a8a92a06.png"/>
+<img align="right" height="700" src="https://user-images.githubusercontent.com/57913130/162217415-aaacfaa8-9ae0-427f-a88a-ad98a8a92a06.png"/>
 
 <p><h1 align="left">ShapedBackground</h1></p>
 
-<p><h4>Repo for the instagram-like shaped background on Android</h4></p>
+<p><h4>Repo for the Instagram-like shaped background on Android</h4></p>
 
 ___
 
@@ -13,6 +13,12 @@ ___
 </br>
 
 <a href="https://exyte.com/contacts"><img src="https://i.imgur.com/vGjsQPt.png" width="134" height="34"></a> <a href="https://twitter.com/exyteHQ"><img src="https://i.imgur.com/DngwSn1.png" width="165" height="34"></a>
+
+</br>
+
+[![Version](https://img.shields.io/jitpack/v/github/exyte/ShapedBackgroundAndroid?label=version)](https://github.com/exyte/ShapedBackgroundAndroid)
+[![License](https://img.shields.io/github/license/exyte/ShapedBackgroundAndroid)](https://github.com/exyte/ShapedBackgroundAndroid)
+[![API](https://img.shields.io/badge/API-17%2B-green)](https://github.com/exyte/ShapedBackgroundAndroid)
 
 ## Overview
 
@@ -47,6 +53,6 @@ In addition to ```TextView```, you can also use the ShapedBackground for ```Edit
 ...
 
 ## Requirements
-Min SDK 19+
+Min SDK 17+
 
 
