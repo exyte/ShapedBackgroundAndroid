@@ -7,20 +7,13 @@ android {
     compileSdk 31
 
     defaultConfig {
-        applicationId "com.example.likeinstabackgroundtext"
-        minSdk 21
+        applicationId 'com.exyte.shapedbackground'
+        minSdk 17
         targetSdk 31
         versionCode 1
         versionName "1.0"
-
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
-    buildTypes {
-        release {
-            minifyEnabled false
-        }
-    }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -34,7 +27,6 @@ android {
 }
 
 dependencies {
-    implementation 'androidx.core:core-ktx:1.7.0'
-    implementation 'androidx.appcompat:appcompat:1.4.1'
     implementation 'com.google.android.material:material:1.5.0'
+    implementation project(':shapedbackground')
 }

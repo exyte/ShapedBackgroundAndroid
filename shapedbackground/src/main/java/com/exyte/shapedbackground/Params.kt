@@ -1,4 +1,4 @@
-package com.example.likeinstabackgroundtext
+package com.exyte.shapedbackground
 
 import android.graphics.Color
 import java.util.ArrayList
@@ -6,7 +6,7 @@ import java.util.ArrayList
 data class BackgroundParams(
     var paddingHorizontal: Float = Float.MIN_VALUE,
     var paddingVertical: Float = Float.MIN_VALUE,
-    var gradient: ArrayList<Int> = arrayListOf() ,
+    var gradient: ArrayList<Int> = arrayListOf(),
     var backgroundColor: Int = Color.TRANSPARENT,
     var cornerRadius: Float = Float.MIN_VALUE,
     var shadow: ShadowParams? = null,

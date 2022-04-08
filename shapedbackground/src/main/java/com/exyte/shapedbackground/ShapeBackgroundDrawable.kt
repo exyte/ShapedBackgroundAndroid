@@ -1,4 +1,4 @@
-package com.example.likeinstabackgroundtext
+package com.exyte.shapedbackground
 
 import android.content.Context
 import android.graphics.*
