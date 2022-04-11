@@ -17,7 +17,7 @@ ___
 </br>
 
 [![Version](https://img.shields.io/jitpack/v/github/exyte/ShapedBackgroundAndroid?label=version)](https://github.com/exyte/ShapedBackgroundAndroid)
-[![License](https://img.shields.io/github/license/exyte/ShapedBackgroundAndroid)](https://github.com/exyte/ShapedBackgroundAndroid)
+[![License](https://img.shields.io/github/license/exyte/shapedBackgroundAndroid)](https://github.com/exyte/ShapedBackgroundAndroid)
 [![API](https://img.shields.io/badge/API-17%2B-green)](https://github.com/exyte/ShapedBackgroundAndroid)
 
 ## Overview
@@ -44,13 +44,29 @@ binding.text.roundedBackground {
     paddingHorizontal = 5f
 }
 ```
+The ShapedBackground drawable uses View paddings to draw. You need to specify paddings to make the background drawable rendered without cropping:
+
+```android:padding="@dimen/your_padding"```
+
+<br/>
+
 In addition to ```TextView```, you can also use the ShapedBackground for ```EditText```
 
 <img height="400" src="https://user-images.githubusercontent.com/57913130/162227748-abc47483-9ed3-46a0-8a48-d722dcf42a0d.gif">
 
 ## Download
 
-...
+1. Add the repository
+
+```
+repositories {
+	...
+	maven { url 'https://jitpack.io' }
+}
+```
+2. Add the dependency:
+
+```implementation 'com.github.exyte:ShapedBackgroundAndroid:1.0.0'```
 
 ## Requirements
 Min SDK 17+
