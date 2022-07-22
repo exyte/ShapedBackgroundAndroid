@@ -8,3 +8,4 @@ dependencyResolutionManagement {
 rootProject.name = "Like Insta Background Text"
 include ':app'
 include ':shapedbackground'
+include ':shapedbackgroundcompose'
