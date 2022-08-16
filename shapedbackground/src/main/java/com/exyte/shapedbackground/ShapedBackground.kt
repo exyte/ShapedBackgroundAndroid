@@ -22,7 +22,6 @@ fun EditText.roundedBackground(init: BackgroundParams.() -> Unit) {
 
 fun TextView.roundedBackground(params: BackgroundParams) {
     drawOnLayout(this, params)
-    drawAfterTextChanged(this, params)
 }
 
 fun EditText.roundedBackground(params: BackgroundParams) {
