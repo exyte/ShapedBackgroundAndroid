@@ -1,5 +1,6 @@
 <img src="https://github.com/exyte/Grid/raw/media/Assets/header.png">
-<img align="right" height="700" src="https://user-images.githubusercontent.com/57913130/162217415-aaacfaa8-9ae0-427f-a88a-ad98a8a92a06.png"/>
+<img align="right" height="700" src="https://user-images.githubusercontent.com/57913130/187610131-0edd19e6-56de-4316-a3c0-57eac9ca14bf.gif"/>
+
 
 <p><h1 align="left">ShapedBackground</h1></p>
 
@@ -19,10 +20,13 @@ ___
 [![Version](https://img.shields.io/jitpack/v/github/exyte/ShapedBackgroundAndroid?label=version)](https://github.com/exyte/ShapedBackgroundAndroid)
 [![License](https://img.shields.io/github/license/exyte/shapedBackgroundAndroid)](https://github.com/exyte/ShapedBackgroundAndroid)
 [![API](https://img.shields.io/badge/API-17%2B-green)](https://github.com/exyte/ShapedBackgroundAndroid)
+[![API](https://img.shields.io/badge/Compose%20API%20-21%2B-brightgreen)](https://github.com/exyte/ShapedBackgroundAndroid)
+
 
 ## Overview
 
 ShapedBackground is an easy way to colour your backdrop as in Instagram stories
+<p><h4>Android View</h4></p>
 
 ```kotlin
 text.roundedBackground {
@@ -52,7 +56,33 @@ The ShapedBackground drawable uses View paddings to draw. You need to specify pa
 
 In addition to ```TextView```, you can also use the ShapedBackground for ```EditText```
 
-<img height="400" src="https://user-images.githubusercontent.com/57913130/162227748-abc47483-9ed3-46a0-8a48-d722dcf42a0d.gif">
+<p><h4>Jetpack Compose</h4></p>
+
+```kotlin
+RoundedBackgroundText(
+    value = text,
+    backgroundParams = BackgroundParams(
+        paddingHorizontal = 15.dp,
+        paddingVertical = 15.dp,
+        cornerRadius = 15.dp,
+        backgroundColor = Zeus,
+        shadow = ShadowParams(
+            dx = 2.dp,
+            dy = 2.dp,
+            radius = 1.dp
+        )
+    )
+)
+```
+
+A gradient can be set instead of a solid background colour:
+
+```kotlin
+backgroundParams = BackgroundParams(
+    gradient = arrayListOf(Color.Black, Color.Blue)
+)
+```
+
 
 ## Download
 
@@ -69,6 +99,5 @@ repositories {
 ```implementation 'com.github.exyte:ShapedBackgroundAndroid:1.0.0'```
 
 ## Requirements
-Min SDK 17+
-
-
+<p>Android View: Min SDK 17+</p>
+<p>Jetpack Compose: Min SDK 21+</p>
