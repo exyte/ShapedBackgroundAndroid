@@ -6,6 +6,8 @@ import android.text.Editable
 import android.text.Layout
 import android.text.TextWatcher
 import android.view.View
+import android.view.ViewGroup
+import android.view.ViewTreeObserver
 import android.widget.EditText
 import android.widget.TextView
 
@@ -64,7 +66,11 @@ private fun drawAfterTextChanged(textView: TextView, params: BackgroundParams) {
     textView.apply {
         val textWatcher = object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
-                drawBackground(this@apply, params)
+                if (isWrapContentLayoutParams(textView)) {
+                    drawAfterTextMeasured(textView, params)
+                } else {
+                    drawBackground(textView, params)
+                }
             }
 
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
@@ -73,6 +79,19 @@ private fun drawAfterTextChanged(textView: TextView, params: BackgroundParams) {
         }
         addTextChangedListener(textWatcher)
     }
+}
+
+private fun isWrapContentLayoutParams(textView: TextView): Boolean =
+    textView.layoutParams.width == ViewGroup.LayoutParams.WRAP_CONTENT
+
+private fun drawAfterTextMeasured(textView: TextView, params: BackgroundParams) {
+    textView.viewTreeObserver
+        .addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
+            override fun onGlobalLayout() {
+                textView.viewTreeObserver.removeOnGlobalLayoutListener(this)
+                drawBackground(textView, params)
+            }
+        })
 }
 
 private fun drawBackground(textView: TextView, params: BackgroundParams) {

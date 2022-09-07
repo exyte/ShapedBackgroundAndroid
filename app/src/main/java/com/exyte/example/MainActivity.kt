@@ -2,6 +2,7 @@ package com.exyte.example
 
 import android.os.Bundle
 import android.text.SpannableStringBuilder
+import android.view.ViewGroup
 import android.widget.EditText
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
@@ -100,6 +101,10 @@ class MainActivity : AppCompatActivity() {
                 .fillMaxWidth(),
             factory = {
                 EditText(it).apply {
+                    layoutParams = ViewGroup.LayoutParams(
+                        ViewGroup.LayoutParams.MATCH_PARENT,
+                        ViewGroup.LayoutParams.WRAP_CONTENT
+                    )
                     setPadding(paddingInPx, paddingInPx, paddingInPx, paddingInPx)
                     textSize = 30f
                     setTextColor(Rajah.toArgb())
