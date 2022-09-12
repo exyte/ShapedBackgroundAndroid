@@ -1,5 +1,5 @@
 <img src="https://github.com/exyte/Grid/raw/media/Assets/header.png">
-<img align="right" height="700" src="https://user-images.githubusercontent.com/57913130/187610131-0edd19e6-56de-4316-a3c0-57eac9ca14bf.gif"/>
+<img align="right" width="480" src="https://user-images.githubusercontent.com/57913130/189569490-71862ab5-5004-4374-9b5d-abf131264431.gif"/>
 
 
 <p><h1 align="left">ShapedBackground</h1></p>
@@ -96,7 +96,14 @@ repositories {
 ```
 2. Add the dependency:
 
-```implementation 'com.github.exyte:ShapedBackgroundAndroid:1.0.0'```
+Android View
+
+```implementation 'com.github.exyte.ShapedBackgroundAndroid:shapedbackground:1.1.1'```
+
+Jetpack Compose
+
+```implementation 'com.github.exyte.ShapedBackgroundAndroid:shapedbackgroundcompose:1.1.1'```
+
 
 ## Requirements
 <p>Android View: Min SDK 17+</p>
