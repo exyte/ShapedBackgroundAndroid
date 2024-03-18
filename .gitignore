@@ -9,6 +9,7 @@
 /.idea/navEditor.xml
 /.idea/assetWizardSettings.xml
 /.idea/deploymentTargetDropDown.xml
+/.idea
 .DS_Store
 /buildSrc/build
 /build
