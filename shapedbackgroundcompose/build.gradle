@@ -1,8 +1,24 @@
 plugins {
     id 'com.android.library'
     id 'org.jetbrains.kotlin.android'
+    id 'maven-publish'
 }
 
+apply plugin: 'maven-publish'
+
+afterEvaluate {
+    publishing {
+        publications {
+            release(MavenPublication) {
+                from components.release
+
+                groupId = 'com.exyte'
+                artifactId = 'shapedbackgroundcompose'
+                version = '1.0.1'
+            }
+        }
+    }
+}
 ext{
     compose_version = '1.6.2'
 }

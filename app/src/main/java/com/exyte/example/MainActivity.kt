@@ -6,10 +6,21 @@ import android.view.ViewGroup
 import android.widget.EditText
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
-import androidx.compose.foundation.layout.*
-import androidx.compose.runtime.*
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.State
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.TextStyle
@@ -19,10 +30,12 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.viewinterop.AndroidView
 import com.example.likeinstabackgroundtext.R
 import com.exyte.shapedbackground.roundedBackground
-import com.exyte.shapedbackgroundcompose.*
+import com.exyte.shapedbackgroundcompose.RoundedBackgroundText
 import com.exyte.shapedbackgroundcompose.core.BackgroundParams
-import com.exyte.shapedbackgroundcompose.core.ShadowParams
 import com.exyte.shapedbackgroundcompose.core.toPxf
+
+typealias ShadowParamsCompose = com.exyte.shapedbackgroundcompose.core.ShadowParams
+typealias ShadowParamsView = com.exyte.shapedbackground.ShadowParams
 
 class MainActivity : AppCompatActivity() {
 
@@ -33,7 +46,7 @@ class MainActivity : AppCompatActivity() {
                 Modifier.fillMaxSize()
             ) {
                 val isComposeView = remember { mutableStateOf(true) }
-                val alignment = remember { mutableStateOf(0) }
+                val alignment = remember { mutableIntStateOf(0) }
 
                 Title(
                     modifier = Modifier.align(Alignment.CenterHorizontally),
@@ -63,25 +76,24 @@ class MainActivity : AppCompatActivity() {
 
         RoundedBackgroundText(
             value = text,
-            onValueChange = {
-                text = it
-            },
+            onValueChange = { text = it },
             modifier = modifier
                 .padding(16.dp)
                 .fillMaxWidth(),
             backgroundParams = BackgroundParams(
-                cornerRadius = 15.dp,
+                cornerRadius = 60f,
                 backgroundColor = Zeus,
-                shadow = ShadowParams(
+                shadow = ShadowParamsCompose(
                     dx = 5.dp,
                     dy = 5.dp,
-                    radius = 10.dp
+                    radius = 10.dp,
+                    color = Color.Black,
                 )
             ),
             textStyle = TextStyle(
                 fontSize = 30.sp,
                 color = Rajah,
-                textAlign = textAlign
+                textAlign = textAlign,
             ),
         )
     }
@@ -131,18 +143,18 @@ class MainActivity : AppCompatActivity() {
         editText: EditText,
         textAlign: Int,
         cornerSize: Float,
-        density: Density
+        density: Density,
     ) {
         editText.textAlignment = textAlign
         editText.text = SpannableStringBuilder(getString(R.string.lorem_ipsum))
         editText.roundedBackground {
             cornerRadius = cornerSize
             backgroundColor = Zeus.toArgb()
-            shadow {
-                dx = 5.dp.toPxf(density)
-                dy = 5.dp.toPxf(density)
-                radius = 10.dp.toPxf(density)
-            }
+            shadow = ShadowParamsView(
+                dx = 5.dp.toPxf(density),
+                dy = 5.dp.toPxf(density),
+                radius = 10.dp.toPxf(density),
+            )
         }
     }
 }

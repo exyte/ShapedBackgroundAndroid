@@ -1,6 +1,23 @@
 plugins {
     id 'com.android.library'
     id 'org.jetbrains.kotlin.android'
+    id 'maven-publish'
+}
+
+apply plugin: 'maven-publish'
+
+afterEvaluate {
+    publishing {
+        publications {
+            release(MavenPublication) {
+                from components.release
+
+                groupId = 'com.exyte'
+                artifactId = 'shapedbackground'
+                version = '1.0.1'
+            }
+        }
+    }
 }
 
 android {
@@ -15,4 +32,8 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+}
+
+dependencies {
+    implementation 'androidx.collection:collection-jvm:1.4.0'
 }

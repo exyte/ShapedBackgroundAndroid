@@ -1,28 +1,34 @@
 package com.exyte.shapedbackground
 
 import android.content.Context
-import android.graphics.*
+import android.graphics.Canvas
+import android.graphics.Color
+import android.graphics.CornerPathEffect
+import android.graphics.LinearGradient
+import android.graphics.Paint
+import android.graphics.Path
+import android.graphics.PixelFormat
+import android.graphics.Shader
 import android.graphics.drawable.ColorDrawable
 
 class ShapeBackgroundDrawable(
     private val shape: Path,
     private val params: BackgroundParams,
     private val context: Context,
-    private val sizeText: Float
+    private val sizeText: Float,
 ) : ColorDrawable() {
 
     private val paint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
-        if (params.cornerRadius == Float.MIN_VALUE) {
-            params.cornerRadius = calculateCornerRadius(sizeText)
-        }
-        pathEffect = CornerPathEffect(params.cornerRadius)
+        val cornerRadius = calculateCornerRadius(sizeText)
+
+        pathEffect = CornerPathEffect(cornerRadius)
 
         params.shadow?.let {
             setShadowLayer(
                 it.radius,
                 it.dx,
                 it.dy,
-                DEFAULT_SHADOW_COLOR
+                DEFAULT_SHADOW_COLOR,
             )
         }
     }
@@ -32,6 +38,7 @@ class ShapeBackgroundDrawable(
         paintBackground(bottom, top)
     }
 
+    @Deprecated("Deprecated in java", replaceWith = ReplaceWith(""))
     override fun getOpacity(): Int = PixelFormat.TRANSPARENT
 
     override fun draw(canvas: Canvas) {
@@ -43,12 +50,8 @@ class ShapeBackgroundDrawable(
 
     private fun paintBackground(bottom: Int, top: Int) {
         when {
-            params.gradient.isNotEmpty() -> {
-                paint.shader = createLinearGradient(bottom, top)
-            }
-            else -> {
-                paint.color = params.backgroundColor
-            }
+            params.gradient.isNotEmpty() -> paint.shader = createLinearGradient(bottom, top)
+            else -> paint.color = params.backgroundColor
         }
     }
 
