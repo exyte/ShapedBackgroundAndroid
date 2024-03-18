@@ -16,9 +16,17 @@ fun createBackgroundPath(
     repeat(textBackgroundResult.lineCount) { lineIndex ->
         if (shouldDrawRect(textBackgroundResult, lineIndex)) {
             val rect = createBackgroundRect(textBackgroundResult, lineIndex, params, density)
-            bgShape.addRect(rect, Path.Direction.CCW)
+            val p = Path().apply {
+                moveTo(rect.left, rect.top)
+                lineTo(rect.right, rect.top)
+                lineTo(rect.right, rect.bottom)
+                lineTo(rect.left, rect.bottom)
+                close()
+            }
+            bgShape.addPath(p)
         }
     }
+    bgShape.close()
     return bgShape
 }
 

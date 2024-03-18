@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:ns1="http://schemas.android.com/tools">
+    <color name="black">#FF000000</color>
+    <color name="jaffa">#F68E3D</color>
+    <color name="serenade">#FFF1E4</color>
+    <color name="white">#FFFFFFFF</color>
+    <dimen name="default_margin">16dp</dimen>
+    <string name="app_name">Like Insta Background Text</string>
+    <string name="lorem_ipsum">Lorem ipsum dolor\nsit amet, consectetur\nadipiscing elit.\nEtiam turpis turpis,\ntristique quis Irma sed,\nfeugiat auctor nulla.</string>
+    <style name="Theme.LikeInstaBackgroundText" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+        <item name="colorPrimary">@color/serenade</item>
+        <item name="colorPrimaryVariant">@color/serenade</item>
+        <item name="colorOnPrimary">@color/jaffa</item>
+        <item name="colorSecondary">@color/jaffa</item>
+        <item name="colorSecondaryVariant">@color/serenade</item>
+        <item name="colorOnSecondary">@color/serenade</item>
+
+        <item name="android:statusBarColor" ns1:targetApi="l">@android:color/transparent</item>
+        <item name="android:navigationBarColor" ns1:targetApi="lollipop">@android:color/transparent</item>
+        <item name="android:windowLightNavigationBar" ns1:targetApi="o_mr1">true</item>
+        <item name="android:enforceNavigationBarContrast" ns1:targetApi="q">false</item>
+    </style>
+    <style name="Theme.LikeInstaBackgroundText.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+</resources>

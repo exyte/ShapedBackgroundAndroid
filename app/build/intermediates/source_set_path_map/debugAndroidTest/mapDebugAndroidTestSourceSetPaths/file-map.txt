@@ -1,0 +1,4 @@
+com.exyte.shapedbackground.test.app-androidTest-0 /home/grey/Android/projects/ShapedBackgroundAndroid/app/build/generated/res/resValues/androidTest/debug
+com.exyte.shapedbackground.test.app-mergeDebugAndroidTestResources-1 /home/grey/Android/projects/ShapedBackgroundAndroid/app/build/intermediates/incremental/debugAndroidTest/mergeDebugAndroidTestResources/merged.dir
+com.exyte.shapedbackground.test.app-mergeDebugAndroidTestResources-2 /home/grey/Android/projects/ShapedBackgroundAndroid/app/build/intermediates/incremental/debugAndroidTest/mergeDebugAndroidTestResources/stripped.dir
+com.exyte.shapedbackground.test.app-debugAndroidTest-3 /home/grey/Android/projects/ShapedBackgroundAndroid/app/build/intermediates/merged_res/debugAndroidTest/mergeDebugAndroidTestResources
