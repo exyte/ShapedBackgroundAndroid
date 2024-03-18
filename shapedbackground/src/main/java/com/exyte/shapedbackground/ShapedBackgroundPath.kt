@@ -1,32 +1,32 @@
-package com.exyte.shapedbackgroundcompose.core
+package com.exyte.shapedbackground
 
 import android.graphics.Path
 import android.graphics.RectF
 import android.os.Build
+import android.text.Layout
+import android.widget.TextView
 import androidx.collection.mutableIntObjectMapOf
-import androidx.compose.ui.text.TextLayoutResult
-import androidx.compose.ui.unit.Density
-import androidx.compose.ui.unit.Dp
 
-//workaround https://issuetracker.google.com/issues/318612129
+/*
+ * Created by Exyte on 18.03.2024.
+ */
+
 private fun createBackgroundPathApi34(
-    textBackgroundResult: TextLayoutResult,
-    paddingHorizontal: Dp,
-    paddingVertical: Dp,
-    density: Density,
+    textView: TextView,
+    params: BackgroundParams,
+    layout: Layout,
 ): Path {
     val bgShape = Path()
     var index = 0
     val map = mutableIntObjectMapOf<MutableList<RectF>>()
 
-    repeat(textBackgroundResult.lineCount) { lineIndex ->
-        if (shouldDrawRect(textBackgroundResult, lineIndex)) {
-            val r = createBackgroundRect(
-                layout = textBackgroundResult,
+    repeat(layout.lineCount) { lineIndex ->
+        if (shouldDrawRect(layout, lineIndex)) {
+            val r = setBackgroundRect(
+                layout = layout,
                 lineIndex = lineIndex,
-                paddingHorizontal = paddingHorizontal,
-                paddingVertical = paddingVertical,
-                density = density,
+                textView = textView,
+                params = params,
             )
             var list = map[index]
             if (list == null) {
@@ -103,82 +103,85 @@ private fun createBackgroundPathApi34(
 }
 
 private fun createBackgroundPathApiCommon(
-    textBackgroundResult: TextLayoutResult,
-    paddingHorizontal: Dp,
-    paddingVertical: Dp,
-    density: Density,
+    textView: TextView,
+    params: BackgroundParams,
+    layout: Layout,
 ): Path {
     val bgShape = Path()
-    repeat(textBackgroundResult.lineCount) { lineIndex ->
-        if (shouldDrawRect(textBackgroundResult, lineIndex)) {
-            val rect = createBackgroundRect(
-                layout = textBackgroundResult,
-                lineIndex = lineIndex,
-                paddingHorizontal = paddingHorizontal,
-                paddingVertical = paddingVertical,
-                density = density,
-            )
+
+    repeat(layout.lineCount) { lineIndex ->
+        if (shouldDrawRect(layout, lineIndex)) {
+            val rect = setBackgroundRect(textView, layout, lineIndex, params)
             bgShape.addRect(rect, Path.Direction.CCW)
         }
     }
     return bgShape
 }
 
-fun createBackgroundPath(
-    textBackgroundResult: TextLayoutResult,
-    paddingHorizontal: Dp,
-    paddingVertical: Dp,
-    density: Density,
+internal fun createBackgroundPath(
+    textView: TextView,
+    params: BackgroundParams,
+    layout: Layout,
 ): Path {
-    if (Build.VERSION.SDK_INT >= 34) {
-        return createBackgroundPathApi34(
-            textBackgroundResult,
-            paddingHorizontal = paddingHorizontal,
-            paddingVertical = paddingVertical,
-            density = density,
-        )
+    return if (Build.VERSION.SDK_INT >= 34) {
+        createBackgroundPathApi34(textView, params, layout)
+    } else {
+        createBackgroundPathApiCommon(textView, params, layout)
     }
-    return createBackgroundPathApiCommon(
-        textBackgroundResult,
-        paddingHorizontal = paddingHorizontal,
-        paddingVertical = paddingVertical,
-        density = density,
-    )
 }
 
-private fun shouldDrawRect(textLayoutResult: TextLayoutResult, lineIndex: Int): Boolean {
-    val start = textLayoutResult.getLineStart(lineIndex)
-    val end = textLayoutResult.getLineEnd(lineIndex)
-    return !(isEndOfLine(textLayoutResult.layoutInput.text, start, end))
+private fun shouldDrawRect(layout: Layout, lineIndex: Int): Boolean {
+    val start = layout.getLineStart(lineIndex)
+    val end = layout.getLineEnd(lineIndex)
+    return !(isEndOfLine(layout.text, start, end) || isLineEmpty(start, end))
 }
 
 private fun isEndOfLine(text: CharSequence, start: Int, end: Int) =
     end - start == 1 && text[start] == END_OF_LINE
 
-private fun createBackgroundRect(
-    layout: TextLayoutResult,
+private fun isLineEmpty(start: Int, end: Int) = start == end
+
+private fun setBackgroundRect(
+    textView: TextView,
+    layout: Layout,
     lineIndex: Int,
-    paddingHorizontal: Dp,
-    paddingVertical: Dp,
-    density: Density,
+    params: BackgroundParams,
 ): RectF {
+    val rect = RectF()
+
+    setPosition(rect, layout, lineIndex)
+    rect.offset(textView.paddingStart.toFloat(), textView.paddingTop.toFloat())
+    setPadding(rect, params)
+    return rect
+}
+
+private fun setPosition(rect: RectF, layout: Layout, lineIndex: Int) {
+    rect.set(
+        layout.getLineLeft(lineIndex),
+        layout.getLineTop(lineIndex).toFloat(),
+        layout.getLineRight(lineIndex),
+        layout.getLineBottom(lineIndex).toFloat()
+    )
+}
+
+private fun setPadding(rect: RectF, params: BackgroundParams) {
+
     val bgPaddingHorizontal: Float = when {
-        paddingHorizontal != Dp.Unspecified -> paddingHorizontal.toPxf(density)
+        params.paddingHorizontal != Float.MIN_VALUE -> params.paddingHorizontal
         else -> DEFAULT_BG_PADDING_HORIZONTAL
     }
 
     val bgPaddingVertical: Float = when {
-        paddingVertical != Dp.Unspecified -> paddingVertical.toPxf(density)
+        params.paddingVertical != Float.MIN_VALUE -> params.paddingVertical
         else -> DEFAULT_BG_PADDING_VERTICAL
     }
-    return RectF(
-        (layout.getLineLeft(lineIndex) - bgPaddingHorizontal),
-        (layout.getLineTop(lineIndex) - bgPaddingVertical),
-        (layout.getLineRight(lineIndex) + bgPaddingHorizontal),
-        (layout.getLineBottom(lineIndex) + bgPaddingVertical)
-    )
-}
 
-const val END_OF_LINE = '\n'
-const val DEFAULT_BG_PADDING_VERTICAL = 0f
-const val DEFAULT_BG_PADDING_HORIZONTAL = 30f
+    rect.apply {
+        set(
+            left - bgPaddingHorizontal,
+            top - bgPaddingVertical,
+            right + bgPaddingHorizontal,
+            bottom + bgPaddingVertical,
+        )
+    }
+}

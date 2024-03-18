@@ -21,15 +21,19 @@ afterEvaluate {
 }
 
 android {
-    compileSdk 33
+    namespace "com.exyte.shapedbackground"
+    compileSdk 34
 
     defaultConfig {
         minSdk 17
-        targetSdk 33
-        versionName "1.0.1"
+        targetSdk 34
     }
 
     kotlinOptions {
         jvmTarget = '1.8'
     }
+}
+
+dependencies {
+    implementation 'androidx.collection:collection-jvm:1.4.0'
 }
