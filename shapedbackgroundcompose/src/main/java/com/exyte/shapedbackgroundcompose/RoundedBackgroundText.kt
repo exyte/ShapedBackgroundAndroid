@@ -4,9 +4,15 @@ import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.*
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.text.TextLayoutResult
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.VisualTransformation
@@ -16,9 +22,9 @@ import com.exyte.shapedbackgroundcompose.modifier.RoundedBackground
 @Composable
 fun RoundedBackgroundText(
     value: String,
+    backgroundParams: BackgroundParams,
     modifier: Modifier = Modifier,
     onValueChange: (String) -> Unit = {},
-    backgroundParams: BackgroundParams,
     enabled: Boolean = true,
     readOnly: Boolean = false,
     textStyle: TextStyle = TextStyle.Default,
@@ -55,7 +61,6 @@ fun RoundedBackgroundText(
             RoundedBackground(
                 textLayoutResult = textLayoutResult,
                 backgroundParams = backgroundParams,
-                textSize = textStyle.fontSize,
             )
             innerTextField()
         },

@@ -56,11 +56,9 @@ private fun drawOnLayout(view: TextView, params: BackgroundParams) {
     }
 }
 
-private fun isLaidOut(view: View): Boolean {
-    return if (Build.VERSION.SDK_INT >= 19) {
-        view.isLaidOut
-    } else view.width > 0 && view.height > 0
-}
+private fun isLaidOut(view: View): Boolean = if (Build.VERSION.SDK_INT >= 19) {
+    view.isLaidOut
+} else view.width > 0 && view.height > 0
 
 private fun drawAfterTextChanged(textView: TextView, params: BackgroundParams) {
     textView.apply {
@@ -113,79 +111,6 @@ private fun buildBackground(textView: TextView, params: BackgroundParams): Path 
             )
         }
         return createBackgroundPath(this, params, layout)
-    }
-}
-
-private fun createBackgroundPath(
-    textView: TextView,
-    params: BackgroundParams,
-    layout: Layout
-): Path {
-    val bgShape = Path()
-
-    repeat(layout.lineCount) { lineIndex ->
-        if (shouldDrawRect(textView, lineIndex)) {
-            val rect = setBackgroundRect(textView, layout, lineIndex, params)
-            bgShape.addRect(rect, Path.Direction.CCW)
-        }
-    }
-    return bgShape
-}
-
-private fun shouldDrawRect(textView: TextView, lineIndex: Int): Boolean {
-    val layout = textView.layout
-    val start = layout.getLineStart(lineIndex)
-    val end = layout.getLineEnd(lineIndex)
-    return !(isEndOfLine(layout.text, start, end) || isLineEmpty(start, end))
-}
-
-private fun isEndOfLine(text: CharSequence, start: Int, end: Int) =
-    end - start == 1 && text[start] == END_OF_LINE
-
-private fun isLineEmpty(start: Int, end: Int) = start == end
-
-private fun setBackgroundRect(
-    textView: TextView,
-    layout: Layout,
-    lineIndex: Int,
-    params: BackgroundParams
-): RectF {
-    val rect = RectF()
-
-    setPosition(rect, layout, lineIndex)
-    rect.offset(textView.paddingStart.toFloat(), textView.paddingTop.toFloat())
-    setPadding(rect, params)
-    return rect
-}
-
-private fun setPosition(rect: RectF, layout: Layout, lineIndex: Int) {
-    rect.set(
-        layout.getLineLeft(lineIndex),
-        layout.getLineTop(lineIndex).toFloat(),
-        layout.getLineRight(lineIndex),
-        layout.getLineBottom(lineIndex).toFloat()
-    )
-}
-
-private fun setPadding(rect: RectF, params: BackgroundParams) {
-
-    val bgPaddingHorizontal: Float = when {
-        params.paddingHorizontal != Float.MIN_VALUE -> params.paddingHorizontal
-        else -> DEFAULT_BG_PADDING_HORIZONTAL
-    }
-
-    val bgPaddingVertical: Float = when {
-        params.paddingVertical != Float.MIN_VALUE -> params.paddingVertical
-        else -> DEFAULT_BG_PADDING_VERTICAL
-    }
-
-    rect.apply {
-        set(
-            left - bgPaddingHorizontal,
-            top - bgPaddingVertical,
-            right + bgPaddingHorizontal,
-            bottom + bgPaddingVertical,
-        )
     }
 }
 

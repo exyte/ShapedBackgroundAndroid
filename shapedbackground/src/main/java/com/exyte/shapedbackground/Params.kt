@@ -2,19 +2,16 @@ package com.exyte.shapedbackground
 
 import android.graphics.Color
 import java.util.ArrayList
+import java.util.Collections
 
 data class BackgroundParams(
     var paddingHorizontal: Float = Float.MIN_VALUE,
     var paddingVertical: Float = Float.MIN_VALUE,
-    var gradient: ArrayList<Int> = arrayListOf(),
+    var gradient: List<Int> = emptyList(),
     var backgroundColor: Int = Color.TRANSPARENT,
-    var cornerRadius: Float = Float.MIN_VALUE,
+    var cornerRadius: Float = 0f,
     var shadow: ShadowParams? = null,
-) {
-    fun shadow(init: ShadowParams.() -> Unit) {
-        shadow = ShadowParams().apply(init)
-    }
-}
+)
 
 data class ShadowParams(
     var radius: Float = DEFAULT_SHADOW_RADIUS,
